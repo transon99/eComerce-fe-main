@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import ProfileButton from "../ProfileButton/ProfileButton";
 import { NavigationBarMenu } from "./Navbar";
 import { Separator } from "../ui/separator";
+import Cart from "../Cart";
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -63,7 +64,7 @@ export const Header = () => {
               className="mr-2"
               aria-label="Shopping Cart"
             >
-              <ShoppingCart className="h-6 w-6" />
+              <Cart />
               <span className="sr-only">Shopping Cart</span>
             </Button>
             <Button
