@@ -1,18 +1,27 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Menu, Moon, ShoppingCart, Sun } from "lucide-react";
 
 import MaxWidthWrapper from "../ui/MaxWidthWrapper";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import ProfileButton from "../ProfileButton/ProfileButton";
-import { NavigationBarMenu } from "./Navbar";
+import { Button, buttonVariants } from "../ui/button";
+import ProfileButton from "../ProfileButton";
+import { NavMenu } from "./Navbar";
 import { Separator } from "../ui/separator";
 import Cart from "../Cart";
+import { useUser } from "@/store/useUser";
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
+  const [isClient, setIsClient] = useState<boolean>(false);
+  const user = useUser((state) => state.userInfo);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const routes = [
     {
@@ -57,35 +66,58 @@ export const Header = () => {
             </Link>
           </div>
 
-          <div className="flex items-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="mr-2"
-              aria-label="Shopping Cart"
-            >
-              <Cart />
-              <span className="sr-only">Shopping Cart</span>
-            </Button>
+          <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
               aria-label="Toggle Theme"
-              className="mr-6"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
               <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle Theme</span>
             </Button>
-            <ProfileButton />
+            <div
+              className=" hover:bg-slate-200 rounded-full p-1"
+              aria-label="Shopping Cart"
+            >
+              {isClient && <Cart />}
+              <span className="sr-only">Shopping Cart</span>
+            </div>
+            <div className="hidden md:flex h-full">
+              {user ? null : (
+                <Link
+                  href="/login"
+                  className={buttonVariants({ variant: "ghost" })}
+                >
+                  Sign in
+                </Link>
+              )}
+              {user ? null : (
+                <Separator orientation="vertical" className="h-[40px]" />
+              )}
+
+              {user ? (
+                <ProfileButton imageUrl={user?.imageUrl} />
+              ) : (
+                <Link
+                  href="/sign-up"
+                  className={buttonVariants({
+                    variant: "ghost",
+                  })}
+                >
+                  Create account
+                </Link>
+              )}
+            </div>
+            {/* <ProfileButton /> */}
           </div>
         </div>
       </MaxWidthWrapper>
       <Separator />
 
       <MaxWidthWrapper>
-        <NavigationBarMenu />
+        <NavMenu />
       </MaxWidthWrapper>
       <Separator />
     </>

@@ -8,14 +8,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const ProfileButton = () => {
+interface Props {
+  imageUrl: string;
+}
+
+const ProfileButton = ({ imageUrl }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarImage src="/img/shadcn.jpg" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        {imageUrl ? (
+          <></>
+        ) : (
+          <Avatar>
+            <AvatarImage src="@/public/image/default-avatar.jpg" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

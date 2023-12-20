@@ -1,6 +1,7 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
+import { CiShoppingCart } from "react-icons/ci";
+
 import {
   Sheet,
   SheetContent,
@@ -42,10 +43,17 @@ const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger className="group -m-2 flex items-center p-2">
-        <ShoppingCart aria-hidden="true" className="h-6 w-6 flex-shrink-0 " />
-        <span className="ml-2 text-sm font-medium ">
-          {isMounted ? itemCount : 0}
-        </span>
+        <div className="relative cursor-pointer">
+          <div className="text-3xl">
+            <CiShoppingCart
+              aria-hidden="true"
+              // className="h-6 w-6 flex-shrink-0 "
+            />
+          </div>
+          <span className="absolute top-[-10px] right-[-10px] bg-[#CC0000] text-white h-5 w-5 rounded-full flex items-center justify-center ml-2 text-sm font-medium ">
+            {isMounted ? itemCount : 0}
+          </span>
+        </div>
       </SheetTrigger>
       <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
         <SheetHeader className="space-y-2.5 pr-6">

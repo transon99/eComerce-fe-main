@@ -34,11 +34,13 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
         <div className="flex flex-col w-full">
           <ImageSlider urls={product.imageUrls} />
 
-          <h3 className="mt-4 font-medium text-sm text-gray-700">
+          <h3 className="mt-4 font-medium text-sm text-gray-700 dark:text-gray-300">
             {product.name}
           </h3>
-          <p className="mt-1 text-sm text-gray-500">{product.category.name}</p>
-          <p className="mt-1 font-medium text-sm text-gray-900">
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            {product.category.name}
+          </p>
+          <p className="mt-1 font-medium text-sm text-gray-900 dark:text-gray-50">
             {formatPrice(product.price)}
           </p>
         </div>

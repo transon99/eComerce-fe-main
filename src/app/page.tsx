@@ -1,6 +1,11 @@
-import { Hero } from "@/components/Hero/Hero";
+"use client";
+
+import userApi from "@/apis/userApi";
+import { Hero } from "@/components/Hero";
 import ProductReel from "@/components/ProductReel";
 import MaxWidthWrapper from "@/components/ui/MaxWidthWrapper";
+import { useUser } from "@/store/useUser";
+import { useEffect } from "react";
 
 const data: Product[] = [
   {
@@ -62,11 +67,19 @@ const data: Product[] = [
   },
 ];
 
+const heroData: string[] = ["", "", ""];
+
 export default function Home() {
+  const { getCurrentUser } = useUser();
+
+  useEffect(() => {
+    getCurrentUser;
+  }, []);
+
   return (
     <>
       <MaxWidthWrapper>
-        <Hero />
+        <Hero urls={heroData} />
         <ProductReel
           title="Featured Products"
           href="/collections/featured"
